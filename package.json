@@ -1,0 +1,24 @@
+{
+  "name": "pdf-viewer-app",
+  "version": "1.0.0",
+  "main": "dist/main.js",
+  "scripts": {
+    "start": "electron .",
+    "start-debug": "npm run build && npx electron ./dist/main.js --trace-warnings",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^24.0.1",
+    "@types/pdfjs-dist": "^2.10.377",
+    "electron": "^36.4.0",
+    "electron-reload": "^2.0.0-alpha.1",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "pdfjs-dist": "^5.3.31"
+  }
+}

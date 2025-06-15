@@ -1,7 +1,7 @@
-import type { PathApi } from './path_api';
+import { PreloadApi } from './preload_api';
 
 export declare global {
   interface Window {
-    api: PathApi;
+    preloadApi: PreloadApi;
   }
 }

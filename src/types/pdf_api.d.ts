@@ -1,6 +1,6 @@
-import { PDFDocumentLoadingTask } from "pdfjs-dist";
+import { PDFDocumentLoadingTask, PDFPageProxy } from "pdfjs-dist";
 
 export interface PdfApi {
-    loadPdfFromArrayBuffer: (arrayBuffer: ArrayBuffer) => Promise<PDFDocumentProxy>,
+    loadPdfFromArrayBuffer: (arrayBuffer: ArrayBuffer, pageNumber: number) => void,
     version: () => string
 }

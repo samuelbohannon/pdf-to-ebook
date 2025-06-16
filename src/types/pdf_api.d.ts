@@ -1,6 +1,9 @@
 import { PDFDocumentLoadingTask, PDFPageProxy } from "pdfjs-dist";
 
 export interface PdfApi {
-    loadPdfFromArrayBuffer: (arrayBuffer: ArrayBuffer, pageNumber: number) => void,
+    loadPdfToMemory: (arrayBuffer: ArrayBuffer) => Promise<boolean>,
+    displayNextPage: () => void,
+    displayCurrentPage: () => void,
+    displayPreviousPage: () => void,
     version: () => string
 }

@@ -19,8 +19,10 @@ window.addEventListener('DOMContentLoaded', () => {
       if (!file) return;
 
       const arrayBuffer = await file.arrayBuffer();
-
-      const pdf = await window.preloadApi.pdf.loadPdfFromArrayBuffer(arrayBuffer, 1);
+      const isPdfLoaded = await window.preloadApi.pdf.loadPdfToMemory(arrayBuffer)
+      if(isPdfLoaded){
+        window.preloadApi.pdf.displayCurrentPage();
+      }
 
 
     } catch (err: any) {
@@ -34,7 +36,22 @@ window.addEventListener('DOMContentLoaded', () => {
       }
     }
   });
-});
 
-//{_pdfInfo: {…}, _transport: {…}}
+
+  const backPageElement = document.getElementById('backPagePdf');
+  const nextPageElement = document.getElementById('nextPagePdf');
+
+  if (backPageElement) {
+    backPageElement.addEventListener('click', async () => {
+      await window.preloadApi.pdf.displayPreviousPage();
+    });
+  }
+
+  if (nextPageElement) {
+    nextPageElement.addEventListener('click', async () => {
+      await window.preloadApi.pdf.displayNextPage();
+    });
+  }
+
+});
 

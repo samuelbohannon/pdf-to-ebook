@@ -1,17 +1,21 @@
 "use strict";
-const { app, BrowserWindow } = require('electron');
-const path = require('path');
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const electron_1 = require("electron");
+const path_1 = __importDefault(require("path"));
 // hot reload
 require('electron-reload')(__dirname, {
-    electron: path.join(__dirname, '..', 'node_modules', '.bin', 'electron'),
+    electron: path_1.default.join(__dirname, '..', 'node_modules', '.bin', 'electron'),
     hardResetMethod: 'exit'
 });
 function createWindow() {
-    const win = new BrowserWindow({
+    const win = new electron_1.BrowserWindow({
         width: 1000,
         height: 800,
         webPreferences: {
-            preload: path.join(__dirname, 'preload.js'),
+            preload: path_1.default.join(__dirname, 'preload.js'),
             contextIsolation: true,
             nodeIntegration: false,
             sandbox: false
@@ -19,5 +23,5 @@ function createWindow() {
     });
     win.loadFile('../index.html');
 }
-app.whenReady().then(createWindow);
+electron_1.app.whenReady().then(createWindow);
 //# sourceMappingURL=main.js.map

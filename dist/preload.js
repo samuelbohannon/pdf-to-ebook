@@ -35,49 +35,8 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 const electron_1 = require("electron");
 const path = __importStar(require("path"));
-const pdfJsLib = __importStar(require("pdfjs-dist"));
-pdfJsLib.GlobalWorkerOptions.workerSrc = path.join('.', 'node_modules/pdfjs-dist/build/pdf.worker.min.mjs');
-const pathApi = {
-    joinPath: (...args) => path.join(...args),
-};
-const pdfApi = {
-    loadPdfFromArrayBuffer: async (arrayBuffer, pageNumber) => {
-        console.log("loadPdfFromArrayBuffer");
-        console.log(arrayBuffer);
-        var pdf = await pdfJsLib.getDocument({ data: arrayBuffer }).promise;
-        if (isPDFDocumentProxy(pdf)) {
-            var page = await pdf.getPage(pageNumber);
-            if (isPdfPageProxy(page)) {
-                const viewport = page.getViewport({ scale: 1.5 });
-                const canvas = document.getElementById('pdf-canvas');
-                if (!canvas) {
-                    throw "Cannot load page to document. Couldn't fine canvas";
-                }
-                if (canvas instanceof HTMLCanvasElement) {
-                    const context = canvas.getContext('2d');
-                    if (context != null) {
-                        canvas.height = viewport.height;
-                        canvas.width = viewport.width;
-                        const renderContext = { canvasContext: context, viewport: viewport };
-                        await page.render(renderContext).promise;
-                    }
-                }
-                return null;
-            }
-        }
-        return pdf;
-    },
-    version: () => pdfJsLib.version
-};
-function isPDFDocumentProxy(object) {
-    return true;
-}
-function isPdfPageProxy(object) {
-    return 'getViewport' in object && 'render' in object;
-}
-const preloadApi = {
-    path: pathApi,
-    pdf: pdfApi
-};
-electron_1.contextBridge.exposeInMainWorld('preloadApi', preloadApi);
+const pdfjs_dist_1 = require("pdfjs-dist");
+const preloadApi_1 = require("./preload-components/api/preloadApi");
+pdfjs_dist_1.GlobalWorkerOptions.workerSrc = path.join('.', 'node_modules/pdfjs-dist/build/pdf.worker.min.mjs');
+electron_1.contextBridge.exposeInMainWorld('preloadApi', preloadApi_1.preloadApi);
 //# sourceMappingURL=preload.js.map

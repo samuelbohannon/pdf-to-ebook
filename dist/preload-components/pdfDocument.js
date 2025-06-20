@@ -15,6 +15,12 @@ class PdfDocument {
     setPreviousPage() {
         this.currentPageNumber = this.currentPageNumber - 1;
     }
+    setPage(pageNumber) {
+        this.currentPageNumber = pageNumber;
+    }
+    getPageCount() {
+        return this.pdfDocument.numPages;
+    }
 }
 exports.PdfDocument = PdfDocument;
 //# sourceMappingURL=pdfDocument.js.map

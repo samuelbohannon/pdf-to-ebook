@@ -1,10 +1,10 @@
-import { PdfDocument } from "./interfaces/pdfDocument";
+import { IPdfDocument } from "./interfaces/IPdfDocument";
 import { PdfPageCanvasRenderer } from "./pdfDomRender";
 
 /// flips the pages and activates the renderer
 export class PdfPageViewerController {
     constructor(
-      private pdf: PdfDocument,
+      private pdf: IPdfDocument,
       private renderer: PdfPageCanvasRenderer
     ) {}
 
@@ -23,7 +23,16 @@ export class PdfPageViewerController {
         await this.renderCurrentPage();
     }
 
-    setPdf(pdfDocument: PdfDocument): void {
+    async setPage(pageNumber: number): Promise<void> {
+        this.pdf.setPage(pageNumber);
+        await this.renderCurrentPage();
+    }
+
+    getPdf(): IPdfDocument {
+        return this.pdf;
+    }
+
+    setPdf(pdfDocument: IPdfDocument): void {
         this.pdf = pdfDocument;
     }
 }

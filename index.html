@@ -3,17 +3,22 @@
 
 <head>
     <title>PDF Viewer</title>
+    <script src="dist/renderer.js"></script>
+    <script>
+        
+    </script>
 </head>
 
 <body>
     <h1>My PDF App</h1>
     <input type="file" id="upload" />
     <canvas id="pdf-canvas"></canvas>
-    <script src="dist/renderer.js"></script>
 
     <button id="backPagePdf">back</button>
     <button id="nextPagePdf">next</button>
 
+    <label for="rangeInput">Value: <span id="rangeValue">50</span></label><br>
+    <input type="range" id="rangeInput" min="0" max="100" value="50">
 </body>
 
 </html>

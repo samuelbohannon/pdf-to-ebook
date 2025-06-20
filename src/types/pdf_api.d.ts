@@ -5,5 +5,7 @@ export interface PdfApi {
     displayNextPage: () => void,
     displayCurrentPage: () => void,
     displayPreviousPage: () => void,
+    displayPage: (pageNumber: number) => void,
+    getPageCount: () => number,
     version: () => string
 }

@@ -15,13 +15,13 @@ window.addEventListener('DOMContentLoaded', () => {
       if(!files) return;
 
       const file = files[0];
-      console.log(file);
       if (!file) return;
 
       const arrayBuffer = await file.arrayBuffer();
       const isPdfLoaded = await window.preloadApi.pdf.loadPdfToMemory(arrayBuffer)
       if(isPdfLoaded){
         window.preloadApi.pdf.displayCurrentPage();
+        setPageRange();
       }
 
 
@@ -53,5 +53,36 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+
+
+  
+
 });
 
+function setPageRange() {
+  const slider = document.getElementById('rangeInput');
+  const output = document.getElementById('rangeValue');
+
+  if(slider && slider instanceof HTMLInputElement && output) {
+    slider.max = window.preloadApi.pdf.getPageCount().toString();
+
+    let timeoutId: NodeJS.Timeout;
+
+    slider.addEventListener('input', () => {
+      console.log(slider.value);
+      output.textContent = slider.value;
+    
+      if(timeoutId)
+        clearTimeout(timeoutId); // Reset the timer
+    
+      timeoutId = setTimeout(() => {
+        onSliderSet(Number(slider.value));
+      }, 1000); 
+    });
+    
+    async function onSliderSet(pageNumber: number) {
+      console.log('Value stayed at:', pageNumber.toString(), 'for 1 second');
+      window.preloadApi.pdf.displayPage(pageNumber)
+    }
+  }
+}

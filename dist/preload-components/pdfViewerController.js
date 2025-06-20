@@ -19,6 +19,13 @@ class PdfPageViewerController {
         this.pdf.setPreviousPage();
         await this.renderCurrentPage();
     }
+    async setPage(pageNumber) {
+        this.pdf.setPage(pageNumber);
+        await this.renderCurrentPage();
+    }
+    getPdf() {
+        return this.pdf;
+    }
     setPdf(pdfDocument) {
         this.pdf = pdfDocument;
     }

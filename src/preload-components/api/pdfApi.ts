@@ -25,21 +25,32 @@ export const pdfApi : PdfApi = {
     }
     return false;
   },
-  displayCurrentPage: () => {
+  getPageCount: () => {
+    var pdfDocument = pdfPageViewerController?.getPdf();
+    if(pdfDocument){
+      return pdfDocument.getPageCount();
+    }
+    return 0;
+  },
+  displayCurrentPage: async () => {
     if(pdfPageViewerController != null){
-        pdfPageViewerController.renderCurrentPage();
+        await pdfPageViewerController.renderCurrentPage();
     }
   },
-  displayNextPage: () => {
+  displayNextPage: async () => {
     if(pdfPageViewerController != null){
-        pdfPageViewerController.nextPage();
-        pdfPageViewerController.renderCurrentPage();
+        await pdfPageViewerController.nextPage();
     }
   },
-  displayPreviousPage: () => {
+  displayPreviousPage: async () => {
     if(pdfPageViewerController != null){
-        pdfPageViewerController.previousPage();
-        pdfPageViewerController.renderCurrentPage();
+        await pdfPageViewerController.previousPage();
+    }
+  },
+
+  displayPage: async (pageNumber: number) => {
+    if(pdfPageViewerController != null){
+      await pdfPageViewerController.setPage(pageNumber);
     }
   },
   version: () => version

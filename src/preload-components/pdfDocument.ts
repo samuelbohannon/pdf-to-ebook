@@ -1,5 +1,5 @@
 import { PDFDocumentProxy, PDFPageProxy } from 'pdfjs-dist';
-import { PdfDocument as IPdfDocument } from './interfaces/pdfDocument';
+import { IPdfDocument } from './interfaces/IPdfDocument';
 
 export class PdfDocument implements IPdfDocument {
     private pdfDocument: PDFDocumentProxy;
@@ -20,6 +20,14 @@ export class PdfDocument implements IPdfDocument {
 
     public setPreviousPage() : void {
       this.currentPageNumber = this.currentPageNumber - 1;
+    }
+
+    setPage(pageNumber: number) : void {
+      this.currentPageNumber = pageNumber;
+    }
+
+    getPageCount(): number {
+      return this.pdfDocument.numPages;
     }
 }
 
